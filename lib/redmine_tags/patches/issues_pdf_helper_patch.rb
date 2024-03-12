@@ -39,7 +39,3 @@ module RedmineTags
     end
   end
 end
-
-base = Redmine::Export::PDF::IssuesPdfHelper
-patch = RedmineTags::Patches::IssuesPdfHelperPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

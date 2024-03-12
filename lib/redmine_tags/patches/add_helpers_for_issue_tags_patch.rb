@@ -10,14 +10,3 @@ module RedmineTags
     end
   end
 end
-
-bases = [
-  IssuesController,
-  CalendarsController,
-  GanttsController,
-  SettingsController
-]
-patch = RedmineTags::Patches::AddHelpersForIssueTagsPatch
-bases.each do |base|
-  base.send(:include, patch) unless base.included_modules.include?(patch)
-end

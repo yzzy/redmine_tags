@@ -36,7 +36,3 @@ module RedmineTags
     end
   end
 end
-
-base = QueriesHelper
-patch = RedmineTags::Patches::QueriesHelperPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

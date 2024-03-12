@@ -52,7 +52,3 @@ module RedmineTags
     end
   end
 end
-
-base = IssueQuery
-patch = RedmineTags::Patches::IssueQueryPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

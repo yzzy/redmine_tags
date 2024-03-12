@@ -21,7 +21,3 @@ module RedmineTags
     end
   end
 end
-
-base = AutoCompletesController
-patch = RedmineTags::Patches::AutoCompletesControllerPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

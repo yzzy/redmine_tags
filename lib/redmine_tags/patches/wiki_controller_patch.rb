@@ -8,7 +8,3 @@ module RedmineTags
     end
   end
 end
-
-base = WikiController
-patch = RedmineTags::Patches::WikiControllerPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

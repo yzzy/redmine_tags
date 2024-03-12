@@ -13,7 +13,3 @@ module RedmineTags
     end
   end
 end
-
-base = Project
-patch = RedmineTags::Patches::ProjectPatch
-base.send(:include, patch) unless base.included_modules.include?(patch)

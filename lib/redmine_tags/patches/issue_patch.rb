@@ -96,7 +96,3 @@ module RedmineTags
     end
   end
 end
-
-base = Issue
-patch = RedmineTags::Patches::IssuePatch
-base.send(:include, patch) unless base.included_modules.include?(patch)
