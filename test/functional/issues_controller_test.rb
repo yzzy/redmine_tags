@@ -80,7 +80,7 @@ class IssuesControllerTest < ActionController::TestCase
     }
     assert_response :success
 
-    assert_select 'div.tags .value span.tag-label a', 1, :text => 'Security'
+    assert_select 'div.tags .value span.tag-label a', count: 1, text: 'Security'
   end
 
   def test_show_issue_should_display_multiple_tags
@@ -93,8 +93,8 @@ class IssuesControllerTest < ActionController::TestCase
 #    assert_select 'div.tags .value', :text => 'Security, Production'
     assert_select 'div.tags .value' do
       assert_select 'span.tag-label', 2, :text
-      assert_select 'span.tag-label a', :text => 'Security'
-      assert_select 'span.tag-label a', :text => 'Production'
+      assert_select 'span.tag-label a', count: 1, text: 'Security'
+      assert_select 'span.tag-label a', count: 1, text: 'Production'
     end
 
     assert_select 'input[name=?][value=?]', 'issue[tag_list]', 'Security, Production'
