@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-unless Rails.try(:autoloaders).try(:zeitwerk_enabled?)
+if Rails.try(:autoloaders).try(:zeitwerk_enabled?)
+  RedmineTags::Hooks::ModelIssueHook
+  RedmineTags::Hooks::ViewsIssuesHook
+  RedmineTags::Hooks::ViewsWikiHook
+else
   require 'redmine_tags'
 
   ActiveSupport::Reloader.to_prepare do
@@ -40,7 +44,7 @@ Redmine::Plugin.register :redmine_tags do
   name        'Redmine Tags'
   author      'Aleksey V Zapparov AKA "ixti" & Alexander Abramov AKA "yzzy"'
   description 'Redmine tagging support'
-  version     '5.0.1'
+  version     '5.0.2'
   url         'https://github.com/yzzy/redmine_tags/'
   author_url  'http://www.ixti.net/'
 
