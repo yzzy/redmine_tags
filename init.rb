@@ -22,7 +22,7 @@ end
   Redmine::Export::PDF::IssuesPdfHelper,
   Redmine::Views::ApiTemplateHandler
 ].each do |base|
-  patch = "RedmineTags::Patches::#{base.class_name}Patch".constantize
+  patch = "RedmineTags::Patches::#{base.name.split('::').last}Patch".constantize
   base.send(:include, patch) unless base.included_modules.include?(patch)
 end
 
@@ -40,7 +40,7 @@ Redmine::Plugin.register :redmine_tags do
   name        'Redmine Tags'
   author      'Aleksey V Zapparov AKA "ixti" & Alexander Abramov AKA "yzzy"'
   description 'Redmine tagging support'
-  version     '5.0.0'
+  version     '5.0.1'
   url         'https://github.com/yzzy/redmine_tags/'
   author_url  'http://www.ixti.net/'
 
