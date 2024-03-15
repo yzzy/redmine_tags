@@ -257,4 +257,39 @@ class IssuesControllerTest < ActionController::TestCase
     assert_equal ['tag_list'], Issue.find(2).journals.last.details.map(&:prop_key)
     assert_equal ['tag_list'], Issue.find(7).journals.last.details.map(&:prop_key)
   end
+
+  def test_show_issue_should_not_display_tags_by_default_for_api_request
+    get :show, params: { id: 1, format: :json }
+    assert issue = @response.parsed_body['issue']
+    assert_nil issue['tags']
+  end
+
+  def test_show_issue_should_not_display_tags_if_not_exists_for_api_request
+    get :show, params: { id: 2, format: :json, include: 'tags' }
+    assert tags = @response.parsed_body['issue']['tags']
+    assert_equal 0, tags.length
+  end
+
+  def test_show_issue_should_display_tags_for_api_request
+    get :show, params: { id: 1, format: :json, include: 'tags' }
+    assert tags = @response.parsed_body['issue']['tags']
+    assert_equal 1, tags.length
+    assert_equal 'Security', tags.first['name']
+  end
+
+  def test_index_issue_should_not_display_tags_by_default_for_api_request
+    get :index, format: :json
+    assert issues = @response.parsed_body['issues']
+    issues.each do |issue|
+      assert_nil issue['tags']
+    end
+  end
+
+  def test_index_issue_should_display_own_tags_for_each_one_for_api_request
+    get :index, params: { format: :json, include: 'tags' }
+    assert issues = @response.parsed_body['issues']
+    assert_equal 1, issues.detect{ |issue| issue["id"] == 1}['tags'].length
+    assert_equal 0, issues.detect{ |issue| issue["id"] == 2}['tags'].length
+    assert_equal 2, issues.detect{ |issue| issue["id"] == 3}['tags'].length
+  end
 end

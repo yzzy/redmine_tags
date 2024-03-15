@@ -44,7 +44,7 @@ Redmine::Plugin.register :redmine_tags do
   name        'Redmine Tags'
   author      'Aleksey V Zapparov AKA "ixti" & Alexander Abramov AKA "yzzy"'
   description 'Redmine tagging support'
-  version     '5.0.2'
+  version     '5.0.3'
   url         'https://github.com/yzzy/redmine_tags/'
   author_url  'http://www.ixti.net/'
 

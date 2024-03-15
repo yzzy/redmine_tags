@@ -16,7 +16,7 @@ module RedmineTags
           ActionController::Base.view_paths.each do |path|
             begin
               lines = File.readlines("#{path}/#{template.virtual_path}_with_tags.api.rsb")
-              template.source.sub!(lines.last, lines.join) unless lines.empty?
+              template.instance_variable_set("@source",template.source.sub(lines.last, lines.join)) unless lines.empty?
             rescue Errno::ENOENT
             end
           end
