@@ -13,7 +13,7 @@ module RedmineTags
       end
 
       module InstanceMethods
-        include TagsHelper
+        include ::TagsHelper
 
         def column_content_with_redmine_tags(column, issue)
           if column.name == :tags

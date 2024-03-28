@@ -33,6 +33,7 @@ end
 patch = RedmineTags::Patches::AddHelpersForIssueTagsPatch
 [
   IssuesController,
+  ProjectsController,
   CalendarsController,
   GanttsController,
   SettingsController
