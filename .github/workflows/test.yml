@@ -36,8 +36,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: supers3kretdonthacklel
         ports:
-          # will assign a random free host port
-          - 3306/tcp
+          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
