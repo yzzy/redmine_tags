@@ -2,6 +2,7 @@ name: Test
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -10,8 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['2.7', '3.2']
-        redmine: ['5.0.8', '5.1.2']
+        ruby: ['3.2']
+        redmine: ['5.1.2']
         db: ['postgres', 'mysql']
       fail-fast: false
 
