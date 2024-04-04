@@ -20,7 +20,11 @@ module RedmineTags
             rescue Errno::ENOENT
             end
           end
-          call_without_redmine_tags(template, source)
+          if Redmine::VERSION::MAJOR < 5
+            call_without_redmine_tags(template)
+          else
+            call_without_redmine_tags(template, source)
+          end
         end
       end
     end

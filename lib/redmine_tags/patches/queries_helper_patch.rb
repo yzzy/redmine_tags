@@ -4,8 +4,6 @@ module RedmineTags
       def self.included(base)
         base.send :include, InstanceMethods
         base.class_eval do
-          include TagsHelper
-
           alias_method :column_content_without_redmine_tags, :column_content
           alias_method :column_content, :column_content_with_redmine_tags
 
@@ -15,6 +13,8 @@ module RedmineTags
       end
 
       module InstanceMethods
+        include TagsHelper
+
         def column_content_with_redmine_tags(column, issue)
           if column.name == :tags
             column.value(issue).collect{ |t| render_tag_link(t) }

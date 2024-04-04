@@ -36,6 +36,10 @@ class IssuesControllerTest < ActionController::TestCase
     User.current = nil
   end
 
+  def response_hash
+    response.parsed_body.is_a?(Hash) ? response.parsed_body : JSON.parse(response.body)
+  end
+
   def test_index_displays_tags_as_html_in_the_correct_column
     @request.session[:user_id] = 1
 
@@ -260,26 +264,26 @@ class IssuesControllerTest < ActionController::TestCase
 
   def test_show_issue_should_not_display_tags_by_default_for_api_request
     get :show, params: { id: 1, format: :json }
-    assert issue = @response.parsed_body['issue']
+    assert issue = response_hash['issue']
     assert_nil issue['tags']
   end
 
   def test_show_issue_should_not_display_tags_if_not_exists_for_api_request
     get :show, params: { id: 2, format: :json, include: 'tags' }
-    assert tags = @response.parsed_body['issue']['tags']
+    assert tags = response_hash['issue']['tags']
     assert_equal 0, tags.length
   end
 
   def test_show_issue_should_display_tags_for_api_request
     get :show, params: { id: 1, format: :json, include: 'tags' }
-    assert tags = @response.parsed_body['issue']['tags']
+    assert tags = response_hash['issue']['tags']
     assert_equal 1, tags.length
     assert_equal 'Security', tags.first['name']
   end
 
   def test_index_issue_should_not_display_tags_by_default_for_api_request
     get :index, format: :json
-    assert issues = @response.parsed_body['issues']
+    assert issues = response_hash['issues']
     issues.each do |issue|
       assert_nil issue['tags']
     end
@@ -287,7 +291,7 @@ class IssuesControllerTest < ActionController::TestCase
 
   def test_index_issue_should_display_own_tags_for_each_one_for_api_request
     get :index, params: { format: :json, include: 'tags' }
-    assert issues = @response.parsed_body['issues']
+    assert issues = response_hash['issues']
     assert_equal 1, issues.detect{ |issue| issue["id"] == 1}['tags'].length
     assert_equal 0, issues.detect{ |issue| issue["id"] == 2}['tags'].length
     assert_equal 2, issues.detect{ |issue| issue["id"] == 3}['tags'].length
